@@ -1,7 +1,125 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
-[x-cloak] {
-    display: none;
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 bg-kibo-blue text-white font-semibold rounded-md transition-all hover:bg-opacity-90 focus:ring-2 focus:ring-offset-2 focus:ring-kibo-blue;
+  }
+  
+  .btn-secondary {
+    @apply px-6 py-3 bg-kibo-gold text-white font-semibold rounded-md transition-all hover:bg-opacity-90 focus:ring-2 focus:ring-offset-2 focus:ring-kibo-gold;
+  }
+  
+  .section-title {
+    @apply text-3xl font-bold mb-8 text-kibo-dark;
+  }
+  
+  .animate-on-scroll {
+    @apply opacity-0 transition-all duration-700;
+  }
+  
+  .animate-on-scroll.is-visible {
+    @apply opacity-100;
+  }
 }
+
+
+/* Service page specific animations */
+.bg-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  
+  /* Animated service card hover effect */
+  .service-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  
+  /* Process step hover animation */
+  .process-step {
+    transition: all 0.3s ease;
+  }
+  
+  .process-step:hover .process-number {
+    transform: scale(1.1);
+    background-color: theme('colors.kibo-gold');
+  }
+  
+  /* FAQ accordion animation */
+  .faq-question {
+    transition: background-color 0.2s ease;
+  }
+  
+  .faq-question:hover {
+    background-color: theme('colors.gray.50');
+  }
+  
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  
+  .faq-answer.open {
+    max-height: 1000px;
+  }
+
+  /* Line clamp utility for text truncation */
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-4 {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  /* Aspect ratio utility for video placeholders */
+  .aspect-w-16 {
+    position: relative;
+    padding-bottom: calc(var(--tw-aspect-h) / var(--tw-aspect-w) * 100%);
+    --tw-aspect-w: 16;
+  }
+  
+  .aspect-h-9 {
+    --tw-aspect-h: 9;
+  }
+  
+  .aspect-w-16 > * {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  
+  /* Testimonial card hover effects */
+  .testimonial-card {
+    transition: all 0.3s ease;
+  }
+  
+  .testimonial-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  
+  /* Star rating animation */
+  .star-rating svg {
+    transition: all 0.2s ease;
+  }
+  
+  .testimonial-card:hover .star-rating svg {
+    transform: scale(1.1);
+  }
