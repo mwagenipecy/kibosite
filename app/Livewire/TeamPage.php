@@ -6,265 +6,219 @@ use Livewire\Component;
 
 class TeamPage extends Component
 {
-    public $teamCategories = [
-        'all' => 'All Team',
-        'leadership' => 'Leadership',
-        'investment' => 'Investment Team',
-        'wealth' => 'Wealth Management',
-        'advisory' => 'Advisory Board'
-    ];
+
 
     public $activeCategory = 'all';
 
-    public $teamMembers = [
-        [
-            'id' => 1,
-            'name' => 'Michael Thompson',
-            'position' => 'CEO & Founder',
-            'category' => 'leadership',
-            'image' => 'images/team/ceo.jpg',
-            'bio' => 'Michael founded Kibo Capital in 1998 with a vision to create a client-centered investment firm. With over 30 years of experience in financial services, he previously served as Managing Director at Goldman Sachs and holds an MBA from Harvard Business School.',
-            'education' => [
-                'Harvard Business School, MBA',
-                'University of Pennsylvania, BS in Economics'
-            ],
-            'expertise' => [
-                'Strategic Planning',
-                'Investment Management',
-                'Corporate Leadership',
-                'Mergers & Acquisitions'
-            ],
-            'linkedin' => 'https://linkedin.com',
-            'email' => 'michael.thompson@kibocapital.com'
+   // In your Livewire component
+
+public $teamCategories = [
+    'all'                => 'All Experts',
+    'leadership'         => 'Leadership',
+    'engineering'        => 'Engineering',
+    'project_management' => 'Project Management',
+    'safety'             => 'Safety',
+    'quality'            => 'Quality Assurance',
+    'procurement'        => 'Procurement',
+];
+
+public $filteredTeamMembers   = [];
+public $selectedMember        = null;
+
+public $teamMembers = [
+    [
+        'id'         => 1,
+        'name'       => 'Eng. Edmund Urussa',
+        'position'   => 'Managing Director',
+        'category'   => 'leadership',
+        'image'      => 'images/team/edmund-urussa.jpg',
+        'bio'        => 'As Managing Director, Eng. Edmund Urussa leads Kibo Capital Limited with integrity and vision. With over 20 years of civil engineering experience, he ensures every project meets the highest standards.',
+        'education'  => [
+            'University of Dar es Salaam, BEng Civil Engineering',
+            'Chartered Engineer (CEng)'
         ],
-        [
-            'id' => 2,
-            'name' => 'Jennifer Wu',
-            'position' => 'Chief Investment Officer',
-            'category' => 'leadership',
-            'image' => 'images/team/cio.jpg',
-            'bio' => 'Jennifer oversees all investment strategies and portfolio management at Kibo Capital. With more than 25 years in the investment industry, she previously managed global equity portfolios at BlackRock and holds a Ph.D. in Financial Economics.',
-            'education' => [
-                'University of Chicago, Ph.D. in Financial Economics',
-                'Yale University, MS in Mathematics',
-                'Beijing University, BS in Finance'
-            ],
-            'expertise' => [
-                'Asset Allocation',
-                'Global Equity Markets',
-                'Risk Management',
-                'Macroeconomic Analysis'
-            ],
-            'linkedin' => 'https://linkedin.com',
-            'email' => 'jennifer.wu@kibocapital.com'
+        'expertise'  => [
+            'Strategic Leadership',
+            'Business Development',
+            'Client Relations'
         ],
-        [
-            'id' => 3,
-            'name' => 'Robert Keller',
-            'position' => 'Head of Wealth Management',
-            'category' => 'leadership',
-            'image' => 'images/team/wealth-head.jpg',
-            'bio' => 'Robert leads our wealth management division, focusing on comprehensive financial solutions for high-net-worth individuals and families. He brings 20 years of experience in private wealth management from Morgan Stanley and is a Certified Financial Planner (CFP®).',
-            'education' => [
-                'University of Michigan, MBA',
-                'Cornell University, BA in Economics'
-            ],
-            'expertise' => [
-                'Estate Planning',
-                'Retirement Planning',
-                'Tax Optimization',
-                'Multi-generational Wealth Transfer'
-            ],
-            'linkedin' => 'https://linkedin.com',
-            'email' => 'robert.keller@kibocapital.com'
+        'linkedin'   => 'https://linkedin.com/in/edmund-urussa',
+        'email'      => 'edmund.urussa@kibocapital.com',
+    ],
+    [
+        'id'         => 2,
+        'name'       => 'Eng. Aisha Mbwana',
+        'position'   => 'Head of Civil Engineering',
+        'category'   => 'engineering',
+        'image'      => 'images/team/aisha-mbwana.jpg',
+        'bio'        => 'Eng. Aisha Mbwana oversees all civil engineering design and execution, bringing an MSc in Structural Engineering and 15 years of infrastructure project leadership.',
+        'education'  => [
+            'University of Nairobi, MSc Structural Engineering',
+            'Technical University of Kenya, BEng Civil Engineering'
         ],
-        [
-            'id' => 4,
-            'name' => 'Sophia Martinez',
-            'position' => 'Chief Financial Officer',
-            'category' => 'leadership',
-            'image' => 'images/team/cfo.jpg',
-            'bio' => 'Sophia oversees all financial operations and corporate strategy for Kibo Capital. Before joining us, she was a Partner at Deloitte where she advised financial services firms. She is a Certified Public Accountant (CPA) with an extensive background in financial management.',
-            'education' => [
-                'Stanford University, MBA',
-                'University of Texas, BBA in Accounting'
-            ],
-            'expertise' => [
-                'Financial Operations',
-                'Strategic Planning',
-                'Regulatory Compliance',
-                'Corporate Finance'
-            ],
-            'linkedin' => 'https://linkedin.com',
-            'email' => 'sophia.martinez@kibocapital.com'
+        'expertise'  => [
+            'Structural Analysis',
+            'Geotechnical Engineering',
+            'Infrastructure Planning'
         ],
-        [
-            'id' => 5,
-            'name' => 'David Chen',
-            'position' => 'Director of Equity Research',
-            'category' => 'investment',
-            'image' => 'images/team/equity-research.jpg',
-            'bio' => 'David leads our equity research team, focusing on identifying compelling investment opportunities across global markets. Prior to Kibo Capital, he was a Senior Research Analyst at Fidelity Investments, covering technology and healthcare sectors.',
-            'education' => [
-                'Columbia University, MBA',
-                'MIT, BS in Computer Science'
-            ],
-            'expertise' => [
-                'Equity Valuation',
-                'Industry Analysis',
-                'Fundamental Research',
-                'Technology & Healthcare Sectors'
-            ],
-            'linkedin' => 'https://linkedin.com',
-            'email' => 'david.chen@kibocapital.com'
+        'linkedin'   => 'https://linkedin.com/in/aisha-mbwana',
+        'email'      => 'aisha.mbwana@kibocapital.com',
+    ],
+    [
+        'id'         => 3,
+        'name'       => 'Eng. John Kimaro',
+        'position'   => 'Head of Building Projects',
+        'category'   => 'project_management',
+        'image'      => 'images/team/john-kimaro.jpg',
+        'bio'        => 'Eng. John Kimaro manages our building projects portfolio, ensuring timely delivery and budget adherence. He holds a PMP certification and has delivered high-rise and commercial developments.',
+        'education'  => [
+            'Strathmore University, BEng Civil Engineering',
+            'PMP® – Project Management Institute'
         ],
-        [
-            'id' => 6,
-            'name' => 'Sarah Johnson',
-            'position' => 'Fixed Income Portfolio Manager',
-            'category' => 'investment',
-            'image' => 'images/team/fixed-income.jpg',
-            'bio' => 'Sarah manages our fixed income strategies, focusing on generating stable returns while preserving capital. She brings 15 years of experience from PIMCO, where she specialized in corporate and municipal bonds. She holds the Chartered Financial Analyst (CFA) designation.',
-            'education' => [
-                'University of California, Berkeley, MBA',
-                'Duke University, BA in Economics'
-            ],
-            'expertise' => [
-                'Bond Portfolio Management',
-                'Credit Analysis',
-                'Interest Rate Strategy',
-                'Fixed Income Security Selection'
-            ],
-            'linkedin' => 'https://linkedin.com',
-            'email' => 'sarah.johnson@kibocapital.com'
+        'expertise'  => [
+            'Project Scheduling',
+            'Cost Control',
+            'Contract Administration'
         ],
-        [
-            'id' => 7,
-            'name' => 'James Wilson',
-            'position' => 'Alternative Investments Director',
-            'category' => 'investment',
-            'image' => 'images/team/alternative.jpg',
-            'bio' => 'James oversees our alternative investment strategies, including private equity, hedge funds, and real assets. Before joining Kibo Capital, he was a Managing Director at Blackstone\'s Alternative Asset Management division and has over 20 years of industry experience.',
-            'education' => [
-                'Wharton School, MBA',
-                'Princeton University, BA in Economics'
-            ],
-            'expertise' => [
-                'Private Equity',
-                'Hedge Fund Strategies',
-                'Real Estate Investment',
-                'Structured Investments'
-            ],
-            'linkedin' => 'https://linkedin.com',
-            'email' => 'james.wilson@kibocapital.com'
+        'linkedin'   => 'https://linkedin.com/in/john-kimaro',
+        'email'      => 'john.kimaro@kibocapital.com',
+    ],
+    [
+        'id'         => 4,
+        'name'       => 'Ms. Grace Mwinyi',
+        'position'   => 'Safety Manager',
+        'category'   => 'safety',
+        'image'      => 'images/team/grace-mwinyi.jpg',
+        'bio'        => 'Grace Mwinyi implements and audits our HSE programs, maintaining zero-incident performance across multiple sites. She is NEBOSH certified and brings over 10 years in construction safety.',
+        'education'  => [
+            'NEBOSH International Diploma',
+            'Kilimo Institute, Diploma in Occupational Health & Safety'
         ],
-        [
-            'id' => 8,
-            'name' => 'Emily Rodriguez',
-            'position' => 'Senior Wealth Advisor',
-            'category' => 'wealth',
-            'image' => 'images/team/wealth-advisor1.jpg',
-            'bio' => 'Emily specializes in creating comprehensive wealth management solutions for high-net-worth clients. She has 12 years of experience in private wealth management and is a Certified Financial Planner (CFP®) and Chartered Financial Consultant (ChFC®).',
-            'education' => [
-                'Northwestern University, MBA',
-                'Boston College, BA in Finance'
-            ],
-            'expertise' => [
-                'Retirement Planning',
-                'Estate Planning',
-                'Tax-Efficient Investing',
-                'Family Office Services'
-            ],
-            'linkedin' => 'https://linkedin.com',
-            'email' => 'emily.rodriguez@kibocapital.com'
+        'expertise'  => [
+            'Risk Assessment',
+            'Safety Auditing',
+            'Training & Compliance'
         ],
-        [
-            'id' => 9,
-            'name' => 'Thomas Wright',
-            'position' => 'Senior Wealth Advisor',
-            'category' => 'wealth',
-            'image' => 'images/team/wealth-advisor2.jpg',
-            'bio' => 'Thomas works with entrepreneurs and executives to create personalized wealth management strategies. With 15 years in the industry, he previously served at UBS Private Wealth Management. He is a Certified Financial Planner (CFP®) and Chartered Financial Analyst (CFA).',
-            'education' => [
-                'University of Chicago, MBA',
-                'Dartmouth College, BA in Economics'
-            ],
-            'expertise' => [
-                'Executive Compensation',
-                'Business Succession Planning',
-                'Retirement Strategies',
-                'Philanthropic Planning'
-            ],
-            'linkedin' => 'https://linkedin.com',
-            'email' => 'thomas.wright@kibocapital.com'
+        'linkedin'   => 'https://linkedin.com/in/grace-mwinyi',
+        'email'      => 'grace.mwinyi@kibocapital.com',
+    ],
+    [
+        'id'         => 5,
+        'name'       => 'Ms. Sophia Juma',
+        'position'   => 'Quality Assurance Manager',
+        'category'   => 'quality',
+        'image'      => 'images/team/sophia-juma.jpg',
+        'bio'        => 'Sophia Juma leads our QA/QC processes, ensuring materials and workmanship exceed industry standards. She holds ISO 9001 Lead Auditor certification.',
+        'education'  => [
+            'University of Cape Town, BSc Construction Management',
+            'ISO 9001 Lead Auditor'
         ],
-        [
-            'id' => 10,
-            'name' => 'Lisa Kim',
-            'position' => 'Estate Planning Specialist',
-            'category' => 'wealth',
-            'image' => 'images/team/estate-planning.jpg',
-            'bio' => 'Lisa specializes in advanced estate planning strategies for high-net-worth families. Before joining Kibo Capital, she practiced law at a prestigious firm focusing on estate and tax planning. She is an attorney and holds an LL.M. in Taxation.',
-            'education' => [
-                'New York University, LL.M. in Taxation',
-                'Harvard Law School, J.D.',
-                'UCLA, BA in Political Science'
-            ],
-            'expertise' => [
-                'Estate & Trust Planning',
-                'Wealth Transfer Strategies',
-                'Family Governance',
-                'Philanthropic Structures'
-            ],
-            'linkedin' => 'https://linkedin.com',
-            'email' => 'lisa.kim@kibocapital.com'
+        'expertise'  => [
+            'Quality Control',
+            'Process Improvement',
+            'Supplier Audits'
         ],
-        [
-            'id' => 11,
-            'name' => 'Dr. Richard Blackwell',
-            'position' => 'Economic Advisor',
-            'category' => 'advisory',
-            'image' => 'images/team/economic-advisor.jpg',
-            'bio' => 'Dr. Blackwell provides macroeconomic insights that inform our investment strategies. He is a former member of the Federal Reserve Board and served as Chief Economist at a major investment bank. He is currently a Professor of Economics at Princeton University.',
-            'education' => [
-                'MIT, Ph.D. in Economics',
-                'London School of Economics, MSc',
-                'Cambridge University, BA in Economics'
-            ],
-            'expertise' => [
-                'Monetary Policy',
-                'Global Economic Trends',
-                'Central Banking',
-                'Economic Forecasting'
-            ],
-            'linkedin' => 'https://linkedin.com',
-            'email' => 'richard.blackwell@kibocapital.com'
+        'linkedin'   => 'https://linkedin.com/in/sophia-juma',
+        'email'      => 'sophia.juma@kibocapital.com',
+    ],
+    [
+        'id'         => 6,
+        'name'       => 'Mr. David Odhiambo',
+        'position'   => 'Project Manager',
+        'category'   => 'project_management',
+        'image'      => 'images/team/david-odhiambo.jpg',
+        'bio'        => 'David Odhiambo coordinates multi-disciplinary teams and stakeholder communications, delivering projects on schedule. He is a Certified ScrumMaster and an expert in agile construction workflows.',
+        'education'  => [
+            'University of Pretoria, MSc Construction Management',
+            'Certified ScrumMaster (CSM)'
         ],
-        [
-            'id' => 12,
-            'name' => 'Catherine Yang',
-            'position' => 'Technology Advisor',
-            'category' => 'advisory',
-            'image' => 'images/team/tech-advisor.jpg',
-            'bio' => 'Catherine advises on technology trends and digital transformation in financial services. She is the former CTO of a major fintech company and serves on the boards of several technology companies. Her insights help us leverage technology to enhance client experiences.',
-            'education' => [
-                'Stanford University, MS in Computer Science',
-                'Carnegie Mellon University, BS in Computer Engineering'
-            ],
-            'expertise' => [
-                'Financial Technology',
-                'Digital Transformation',
-                'Cybersecurity',
-                'Artificial Intelligence in Finance'
-            ],
-            'linkedin' => 'https://linkedin.com',
-            'email' => 'catherine.yang@kibocapital.com'
-        ]
-    ];
+        'expertise'  => [
+            'Agile Project Delivery',
+            'Stakeholder Engagement',
+            'Resource Planning'
+        ],
+        'linkedin'   => 'https://linkedin.com/in/david-odhiambo',
+        'email'      => 'david.odhiambo@kibocapital.com',
+    ],
+    [
+        'id'         => 7,
+        'name'       => 'Mr. Abdallah Suleiman',
+        'position'   => 'Procurement Manager',
+        'category'   => 'procurement',
+        'image'      => 'images/team/abdallah-suleiman.jpg',
+        'bio'        => 'Abdallah Suleiman manages our supply chain and vendor relationships, optimizing costs and delivery timelines. He holds a diploma in Supply Chain Management.',
+        'education'  => [
+            'Institute of Supply Chain Management (Tanzania), Diploma SCM'
+        ],
+        'expertise'  => [
+            'Contract Negotiation',
+            'Vendor Management',
+            'Logistics Coordination'
+        ],
+        'linkedin'   => 'https://linkedin.com/in/abdallah-suleiman',
+        'email'      => 'abdallah.suleiman@kibocapital.com',
+    ],
+    [
+        'id'         => 8,
+        'name'       => 'Ms. Rosa Kambarage',
+        'position'   => 'Director of Client Relations',
+        'category'   => 'leadership',
+        'image'      => 'images/team/rosa-kambarage.jpg',
+        'bio'        => 'Rosa Kambarage ensures clear communication and client satisfaction across all projects. She has 12 years in client services and holds a certificate in Client Experience Management.',
+        'education'  => [
+            'University of Dar es Salaam, BA Communications',
+            'CX Institute, Certificate in Client Experience'
+        ],
+        'expertise'  => [
+            'Stakeholder Management',
+            'Client Communications',
+            'Service Design'
+        ],
+        'linkedin'   => 'https://linkedin.com/in/rosa-kambarage',
+        'email'      => 'rosa.kambarage@kibocapital.com',
+    ],
+    [
+        'id'         => 9,
+        'name'       => 'Mr. James Njenga',
+        'position'   => 'Senior Estimator',
+        'category'   => 'project_management',
+        'image'      => 'images/team/james-njenga.jpg',
+        'bio'        => 'James Njenga leads cost estimation and budgeting, leveraging 10 years of experience to deliver accurate, competitive bids.',
+        'education'  => [
+            'Moi University, BSc Quantity Surveying'
+        ],
+        'expertise'  => [
+            'Cost Estimation',
+            'Budgeting',
+            'Tender Preparation'
+        ],
+        'linkedin'   => 'https://linkedin.com/in/james-njenga',
+        'email'      => 'james.njenga@kibocapital.com',
+    ],
+    [
+        'id'         => 10,
+        'name'       => 'Ms. Leila Hassan',
+        'position'   => 'HSE Officer',
+        'category'   => 'safety',
+        'image'      => 'images/team/leila-hassan.jpg',
+        'bio'        => 'Leila Hassan implements health, safety, and environmental protocols, ensuring compliance on all sites. She is NEBOSH certified.',
+        'education'  => [
+            'NEBOSH International Certificate',
+            'Ardhi University, Diploma in Health & Safety'
+        ],
+        'expertise'  => [
+            'Health & Safety Management',
+            'Environmental Compliance',
+            'Emergency Response'
+        ],
+        'linkedin'   => 'https://linkedin.com/in/leila-hassan',
+        'email'      => 'leila.hassan@kibocapital.com',
+    ],
+];
+
     
 
-    public $filteredTeamMembers=[];
-    public $selectedMember = null;
+
     
     public function mount()
     {

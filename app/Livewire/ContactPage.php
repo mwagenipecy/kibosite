@@ -25,40 +25,43 @@ class ContactPage extends Component
 
     public $offices = [
         [
-            'city' => 'New York',
-            'address' => '123 Financial District, Suite 500<br>New York, NY 10005',
-            'phone' => '+1 (212) 555-7890',
-            'email' => 'newyork@kibocapital.com',
-            'hours' => 'Monday-Friday: 9:00 AM - 5:00 PM',
-            'image' => 'images/offices/new-york.jpg'
+            'city'    => 'Dar es Salaam',
+            'address' => 'Pamba / Sokoine Drive, Block No 106<br>P.O. Box 76619<br>Dar es Salaam, Tanzania',
+            'phone'   => '+255 768 091 176',
+            'email'   => 'dar@kibocapital.com',
+            'hours'   => 'Monday–Friday: 8:00 AM – 5:00 PM',
+            'image'   => 'images/offices/dar-es-salaam.jpg'
         ],
         [
-            'city' => 'London',
-            'address' => '45 Canary Wharf Tower<br>London, E14 5HS, UK',
-            'phone' => '+44 20 7946 0321',
-            'email' => 'london@kibocapital.com',
-            'hours' => 'Monday-Friday: 9:00 AM - 5:30 PM',
-            'image' => 'images/offices/london.jpg'
+            'city'    => 'Nairobi',
+            'address' => 'Upper Hill, KenGen Tower, 10th Floor<br>P.O. Box 12345<br>Nairobi, Kenya',
+            'phone'   => '+254 20 123 4567',
+            'email'   => 'nairobi@kibocapital.com',
+            'hours'   => 'Monday–Friday: 8:30 AM – 5:30 PM',
+            'image'   => 'images/offices/nairobi.jpg'
         ],
         [
-            'city' => 'Singapore',
-            'address' => '88 Market Street, #32-01<br>Singapore 048948',
-            'phone' => '+65 6701 8421',
-            'email' => 'singapore@kibocapital.com',
-            'hours' => 'Monday-Friday: 9:00 AM - 6:00 PM',
-            'image' => 'images/offices/singapore.jpg'
-        ]
+            'city'    => 'Addis Ababa',
+            'address' => 'Bole Road, LF Building, 5th Floor<br>P.O. Box 678<br>Addis Ababa, Ethiopia',
+            'phone'   => '+251 11 678 9012',
+            'email'   => 'addis@kibocapital.com',
+            'hours'   => 'Monday–Friday: 9:00 AM – 5:00 PM',
+            'image'   => 'images/offices/addis-ababa.jpg'
+        ],
     ];
-
+    
     public $services = [
-        'Investment Management',
-        'Wealth Management',
-        'Financial Planning',
-        'Retirement Planning',
-        'Tax Planning',
-        'Estate Planning',
+        'Building Construction',
+        'Civil Infrastructure',
+        'Renovation & Refurbishment',
+        'Project Management',
+        'Procurement & Supply Chain Management',
+        'Quality & Safety Assurance',
+        'Consultancy & Advisory',
         'Other Services'
     ];
+
+    
 
     public function submit()
     {

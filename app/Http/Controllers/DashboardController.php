@@ -44,12 +44,24 @@ class DashboardController extends Controller
     }
 
 
-    public function blogPost($slug){
+    // public function blogPost($slug){
 
-        return view('pages.blog-post',['slug'=>$slug]);
+    //     return view('pages.blog-post',['slug'=>$slug]);
+    // }
+
+
+
+    public function blogPostPage($slug){
+
+        return view('pages.blog',['slug'=>$slug]);
+
     }
 
     public function blogPage(){
         return view('pages.blog-page');
     }
+
+
+
+    
 }

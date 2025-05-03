@@ -37,14 +37,14 @@
                 @foreach($services as $service)
                 <div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-lg animate-on-scroll">
                     <div class="h-48 bg-gray-100 relative overflow-hidden">
-                    <img src="{{ asset($activeService['image'] ?? 'default_image.jpg') }}" alt="{{ $activeService['title']?? '' }}" class="w-full h-auto rounded-lg shadow-lg">
-                    <div class="absolute inset-0 bg-gradient-to-t from-kibo-dark to-transparent opacity-60"></div>
+                        <img src="{{ asset($service['image']) }}" alt="{{ $service['title'] }}" class="w-full h-auto rounded-lg shadow-lg">
+                        <div class="absolute inset-0 bg-gradient-to-t from-kibo-dark to-transparent opacity-60"></div>
                         <div class="absolute bottom-0 left-0 right-0 p-4">
-                            <h3 class="text-xl font-bold text-white">{{ $service['title'] ?? ' ' }}</h3>
+                            <h3 class="text-xl font-bold text-white">{{ $service['title'] }}</h3>
                         </div>
                     </div>
                     <div class="p-6">
-                        <p class="text-gray-600 mb-4">{{ $service['shortDescription'] ?? '' }}</p>
+                        <p class="text-gray-600 mb-4">{{ $service['shortDescription'] }}</p>
                         <button wire:click="setActiveTab('{{ $service['id'] }}')" class="text-kibo-blue font-medium flex items-center transition-colors hover:text-kibo-gold">
                             Learn More
                             <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -89,36 +89,38 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center animate-on-scroll">
                 <div class="lg:col-span-5">
                     <div class="relative">
-                        <img src="{{ asset($activeService['image']) }}" alt="{{ $activeService['title'] }}" class="w-full h-auto rounded-lg shadow-lg">
+                        <img src="{{ asset($activeService['image'] ?? '') }}" alt="{{ $activeService['title'] ?? 'Service' }}" class="w-full h-auto rounded-lg shadow-lg">
                         <div class="absolute -bottom-6 -right-6 bg-kibo-gold text-white p-5 rounded-lg shadow-lg hidden md:block">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $activeService['icon'] }}"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $activeService['icon'] ?? '' }}"></path>
                             </svg>
                         </div>
                     </div>
                 </div>
                 
                 <div class="lg:col-span-7">
-                    <h3 class="text-3xl font-bold text-kibo-dark mb-4">{{ $activeService['title'] }}</h3>
-                    <p class="text-gray-600 mb-6">{{ $activeService['description'] }}</p>
+                    <h3 class="text-3xl font-bold text-kibo-dark mb-4">{{ $activeService['title'] ?? 'Service Details' }}</h3>
+                    <p class="text-gray-600 mb-6">{{ $activeService['description'] ?? 'Service description' }}</p>
                     
                     <div class="space-y-4 mb-8">
-                        @foreach($activeService['features'] as $feature)
-                        <div class="flex items-start">
-                            <div class="bg-kibo-blue rounded-full w-6 h-6 flex items-center justify-center text-white mt-1 mr-3 flex-shrink-0">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
+                        @if(isset($activeService['features']))
+                            @foreach($activeService['features'] as $feature)
+                            <div class="flex items-start">
+                                <div class="bg-kibo-blue rounded-full w-6 h-6 flex items-center justify-center text-white mt-1 mr-3 flex-shrink-0">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-kibo-dark mb-1">{{ $feature['title'] }}</h4>
+                                    <p class="text-gray-600">{{ $feature['description'] }}</p>
+                                </div>
                             </div>
-                            <div>
-                                <h4 class="font-semibold text-kibo-dark mb-1">{{ $feature['title'] }}</h4>
-                                <p class="text-gray-600">{{ $feature['description'] }}</p>
-                            </div>
-                        </div>
-                        @endforeach
+                            @endforeach
+                        @endif
                     </div>
                     
-                    <a href="{{ route('contact') }}" class="btn-primary">{{ $activeService['cta'] }}</a>
+                    <a href="{{ route('contact') }}" class="btn-primary">{{ $activeService['cta'] ?? 'Contact Us' }}</a>
                 </div>
             </div>
         </div>

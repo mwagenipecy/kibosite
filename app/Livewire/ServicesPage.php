@@ -8,7 +8,9 @@ class ServicesPage extends Component
 {
     public $activeTab = 'investment';
     
-    public $activeService=[];
+    // Remove this property as we'll be using the getActiveServiceProperty() method
+    // public $activeService=[];
+    
     public $services = [
        
         [
@@ -39,7 +41,7 @@ class ServicesPage extends Component
                     'description' => 'We provide comprehensive performance reporting and regular reviews to keep you informed about your investment progress.'
                 ]
             ],
-            'image' => 'images/services/investment-management.jpg',
+            'image' => '/service/im1.jpg',
             'cta' => 'Optimize Your Investments'
         ],
         
@@ -71,7 +73,7 @@ class ServicesPage extends Component
                     'description' => 'We provide education and governance structures to prepare future generations for wealth transfer and management.'
                 ]
             ],
-            'image' => 'images/services/wealth-management.jpg',
+            'image' => '/service/im2.jpg',
             'cta' => 'Build Your Legacy'
         ],
         [
@@ -102,7 +104,7 @@ class ServicesPage extends Component
                     'description' => 'We continuously monitor and adjust your financial plan to accommodate life changes and evolving financial goals.'
                 ]
             ],
-            'image' => 'images/services/financial-planning.jpg',
+            'image' => '/service/im3.jpg',
             'cta' => 'Plan Your Future'
         ],
         [
@@ -133,7 +135,7 @@ class ServicesPage extends Component
                     'description' => 'We help you plan for healthcare expenses in retirement, including Medicare and long-term care considerations.'
                 ]
             ],
-            'image' => 'images/services/retirement-planning.jpg',
+            'image' => '/service/im2.jpg',
             'cta' => 'Secure Your Retirement'
         ],
         [
@@ -164,7 +166,7 @@ class ServicesPage extends Component
                     'description' => 'We develop strategies to minimize estate and gift taxes while efficiently transferring wealth to your heirs.'
                 ]
             ],
-            'image' => 'images/services/tax-planning.jpg',
+            'image' => '/service/im4.jpg',
             'cta' => 'Optimize Your Tax Strategy'
         ],
         [
@@ -195,7 +197,7 @@ class ServicesPage extends Component
                     'description' => 'We incorporate philanthropic goals into your estate plan, creating a lasting impact for causes you care about.'
                 ]
             ],
-            'image' => 'images/services/estate-planning.jpg',
+            'image' => '/service/im1.jpg',
             'cta' => 'Protect Your Legacy'
         ]
     ];
@@ -260,22 +262,36 @@ class ServicesPage extends Component
         ]
     ];
 
+    // public function setActiveTab($tabId)
+    // {
+    //     $this->activeTab = $tabId;
+    // }
+
+    // Define the activeService with default data to avoid undefined issues
+    public $activeService = [];
+
+    // Initialize the activeService when the component mounts
+    public function mount()
+    {
+        $this->updateActiveService();
+    }
+    
+    // Update the activeService when the tab changes
     public function setActiveTab($tabId)
     {
         $this->activeTab = $tabId;
+        $this->updateActiveService();
     }
-
-    public function getActiveServiceProperty()
+    
+    // Helper method to update the activeService based on activeTab
+    public function updateActiveService()
     {
-        return collect($this->services)->firstWhere('id', $this->activeTab);
+        $this->activeService = collect($this->services)
+            ->firstWhere('id', $this->activeTab) ?? [];
     }
 
     public function render()
     {
         return view('livewire.services-page');
     }
-
-
-
-
 }

@@ -1,7 +1,6 @@
+<!-- resources/views/livewire/blog-post.blade.php -->
 <div>
-    {{-- If you look to others for fulfillment, you will never truly be fulfilled. --}}
-
-    <div>
+    @if($article)
     <!-- Hero Section -->
     <section class="relative pt-40 pb-20 bg-gradient-to-r from-kibo-dark to-kibo-blue text-white overflow-hidden">
         <div class="absolute inset-0 bg-black opacity-70"></div>
@@ -18,7 +17,7 @@
                 <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 animate-slide-down">{{ $article['title'] }}</h1>
                 
                 <div class="flex items-center mb-6 animate-slide-up">
-                    <img src="{{ asset($article['author_image']) }}" alt="{{ $article['author'] }}" class="w-12 h-12 rounded-full mr-4">
+                    <img src="{{ asset($article['author_image'] ?'/profile/icon.avif' : '/profile/icon.avif') }}" alt="{{ $article['author'] }}" class="w-12 h-12 rounded-full mr-4">
                     <div>
                         <h4 class="font-semibold text-white">{{ $article['author'] }}</h4>
                         <div class="flex items-center text-sm text-gray-300">
@@ -41,7 +40,7 @@
                     <div class="prose prose-lg max-w-none animate-on-scroll">
                         <!-- Featured Image -->
                         <div class="mb-8 rounded-lg overflow-hidden shadow-lg">
-                            <img src="{{ asset($article['image']) }}" alt="{{ $article['title'] }}" class="w-full h-auto">
+                            <!-- <img src="{{ asset($article['image'] ) }}" alt="{{ $article['title'] }}" class="w-full h-auto"> -->
                         </div>
                         
                         <!-- Article Content -->
@@ -204,7 +203,18 @@
             </div>
         </div>
     </section>
-</div>
-
-
+    @else
+    <!-- No Article Found Message -->
+    <section class="py-32 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-3xl font-bold text-kibo-dark mb-4">Article Not Found</h1>
+                <p class="text-lg text-gray-600 mb-8">The article you're looking for doesn't seem to exist.</p>
+                <a href="{{ route('blog') }}" class="inline-block bg-kibo-blue text-white font-semibold px-6 py-3 rounded-md hover:bg-opacity-90 transition-colors">
+                    Return to Blog
+                </a>
+            </div>
+        </div>
+    </section>
+    @endif
 </div>

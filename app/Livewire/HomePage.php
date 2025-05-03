@@ -9,21 +9,22 @@ class HomePage extends Component
     public $currentSlide = 0;
     public $slides = [
         [
-            'title' => 'Strategic Investment Solutions',
-            'subtitle' => 'Building wealth through intelligent capital allocation',
-            'image' => '/image/ima.jpg',
+            'title'    => 'Holistic Construction Expertise',
+            'subtitle' => 'Delivering turnkey building solutions with integrity and excellence',
+            'image'    => '/image/ima.jpg',
         ],
         [
-            'title' => 'Financial Excellence',
-            'subtitle' => 'Creating sustainable growth opportunities',
-            'image' => '/image/ima3.jpg',
+            'title'    => 'Innovative Civil Engineering',
+            'subtitle' => 'Creating infrastructure that stands the test of time',
+            'image'    => '/image/ima3.jpg',
         ],
         [
-            'title' => 'Global Investment Reach',
-            'subtitle' => 'Diversified portfolios across markets',
-            'image' => '/image/ima2.jpg',
+            'title'    => 'Trusted Collaborative Partnerships',
+            'subtitle' => 'Partnering with public & private clients to realize their visions',
+            'image'    => '/image/ima2.jpg',
         ],
     ];
+    
 
     public function nextSlide()
     {

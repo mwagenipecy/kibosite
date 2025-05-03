@@ -44,12 +44,12 @@ Route::middleware([
 
 
 
-Route::get('/',[DashboardController::class,'index'])->name('home');
-Route::get('/about',[DashboardController::class,'aboutPage'])->name('about');
+Route::get('/',[DashboardController::class,'index'])->name('home'); //done
+Route::get('/about',[DashboardController::class,'aboutPage'])->name('about'); //done
 Route::get('/services',[DashboardController::class,'servicePage'])->name('services');
-Route::get('/contact',[DashboardController::class,'contactPage'])->name('contact');
-Route::get('/team',[DashboardController::class,'teamPage'])->name('team');
-Route::get('testimonials',[DashboardController::class,'testmonialPage'])->name('testimonials');
-Route::get('/portfolio',[DashboardController::class,'portfolioPage'])->name('portfolio');
-Route::get('/blog',[DashboardController::class,'blogPage'])->name('blog');
-Route::get('/blog/{slug}',[DashboardController::class,'blogPost'])->name('blog.post');
+Route::get('/contact',[DashboardController::class,'contactPage'])->name('contact'); //done
+Route::get('/team',[DashboardController::class,'teamPage'])->name('team'); //done
+Route::get('testimonials',[DashboardController::class,'testmonialPage'])->name('testimonials'); //done
+Route::get('/portfolio',[DashboardController::class,'portfolioPage'])->name('portfolio'); //done
+Route::get('/blog',[DashboardController::class,'blogPage'])->name('blog'); //done
+Route::get('/blog/{slug}',[DashboardController::class,'blogPostPage'])->name('blog.post');
