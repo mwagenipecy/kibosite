@@ -6,8 +6,13 @@ use Livewire\Component;
 
 class HomePage extends Component
 {
-    public $currentSlide = 0;
+    public $currentSlide = 0; 
     public $slides = [
+        [
+            'title'    => 'Design. Build. Deliver.',
+            'subtitle' => 'Comprehensive construction services from concept to completion',
+            'image'    => '/image/img88.png',
+        ],
         [
             'title'    => 'Holistic Construction Expertise',
             'subtitle' => 'Delivering turnkey building solutions with integrity and excellence',

@@ -1,42 +1,125 @@
-<div>
-    {{-- Care about people's approval and you will be their prisoner. --}}
-    <!-- Hero Section with Slideshow -->
-    <section class="relative h-screen bg-black">
-        <!-- Slides -->
-        @foreach($slides as $index => $slide)
-            <div class="absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out {{ $currentSlide === $index ? 'opacity-100' : 'opacity-0' }}"
-                 style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ asset($slide['image']) }}'); background-size: cover; background-position: center;">
-                <div class="flex items-center justify-center h-full">
-                    <div class="text-center max-w-3xl px-4">
-                        <h1 class="text-5xl md:text-6xl font-bold text-white mb-4 animate-slide-down">{{ $slide['title'] }}</h1>
-                        <p class="text-xl md:text-2xl text-gray-200 mb-8 animate-slide-up">{{ $slide['subtitle'] }}</p>
-                        <div class="animate-fade-in">
-                            <a href="{{ route('contact') }}" class="btn-primary mr-4">Get Started</a>
-                            <a href="{{ route('about') }}" class="btn-secondary">Learn More</a>
+ <!-- Hero Section with Enhanced Slideshow -->
+ <div x-data="{ 
+    currentSlide: 0, 
+    totalSlides: {{ count($slides) }},
+    autoSlide: true,
+    slideInterval: null,
+    startAutoSlide() {
+        this.slideInterval = setInterval(() => {
+            if (this.autoSlide) {
+                this.nextSlide();
+            }
+        }, 5000);
+    },
+    stopAutoSlide() {
+        this.autoSlide = false;
+        clearInterval(this.slideInterval);
+    },
+    resumeAutoSlide() {
+        this.autoSlide = true;
+        this.startAutoSlide();
+    },
+    nextSlide() {
+        this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+    },
+    prevSlide() {
+        this.currentSlide = this.currentSlide === 0 ? this.totalSlides - 1 : this.currentSlide - 1;
+    },
+    setSlide(index) {
+        this.currentSlide = index;
+    }
+}" 
+x-init="startAutoSlide()" 
+@mouseenter="stopAutoSlide()" 
+@mouseleave="resumeAutoSlide()"
+class="scroll-smooth">
+
+
+ <section class="relative h-screen bg-black overflow-hidden">
+        <!-- Slides Container -->
+        <div class="relative h-full">
+            @foreach($slides as $index => $slide)
+                <div x-show="currentSlide === {{ $index }}"
+                     x-transition:enter="transition-all duration-1000 ease-in-out"
+                     x-transition:enter-start="opacity-0 scale-105"
+                     x-transition:enter-end="opacity-100 scale-100"
+                     x-transition:leave="transition-all duration-1000 ease-in-out"
+                     x-transition:leave-start="opacity-100 scale-100"
+                     x-transition:leave-end="opacity-0 scale-95"
+                     class="absolute inset-0 w-full h-full"
+                     style="background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(30,58,138,0.6) 0%, rgba(0,0,0,0.7) 0%), url('{{ asset($slide['image']) }}'); background-size: cover; background-position: center; background-attachment: fixed;">
+                    
+                    <!-- Content -->
+                    <div class="flex items-center justify-center h-full relative z-10">
+                        <div class="text-center max-w-5xl px-4">
+                            <div class="animate-slide-in-up">
+                                <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+                                    <span class="bg-gradient-to-r from-white via-gray-200 to-kibo-gold bg-clip-text text-transparent">
+                                        {{ $slide['title'] }}
+                                    </span>
+                                </h1>
+                            </div>
+                            
+                            <div class="animate-slide-in-up animation-delay-300">
+                                <p class="text-xl md:text-2xl lg:text-3xl text-gray-200 mb-8 font-light leading-relaxed max-w-4xl mx-auto">
+                                    {{ $slide['subtitle'] }}
+                                </p>
+                            </div>
+                            
+                            <div class="animate-slide-in-up animation-delay-600 space-y-4 md:space-y-0 md:space-x-6 flex flex-col md:flex-row justify-center">
+                                <a href="{{ route('contact') }}" 
+                                   class="group relative overflow-hidden bg-kibo-blue hover:bg-kibo-blue/90 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl">
+                                    <span class="relative z-10">Get Started</span>
+                                    <div class="absolute inset-0 bg-gradient-to-r from-kibo-gold to-kibo-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                </a>
+                                <a href="{{ route('about') }}" 
+                                   class="group border-2 border-white text-white hover:bg-white hover:text-kibo-dark px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105">
+                                    Learn More
+                                </a>
+                            </div>
                         </div>
                     </div>
+                    
+                    <!-- Decorative Elements -->
+                    <div class="absolute top-20 left-10 w-32 h-32 bg-kibo-gold/20 rounded-full blur-xl animate-float"></div>
+                    <div class="absolute bottom-20 right-10 w-48 h-48 bg-kibo-blue/20 rounded-full blur-xl animate-float-delayed"></div>
                 </div>
-            </div>
-        @endforeach
+            @endforeach
+        </div>
 
-        <!-- Slide Navigation Controls -->
-        <div class="absolute bottom-10 left-0 right-0 flex justify-center space-x-3">
+        <!-- Enhanced Navigation Controls -->
+        <div class="absolute bottom-8 left-0 right-0 flex justify-center space-x-3 z-20">
             @foreach($slides as $index => $slide)
-                <button wire:click="setSlide({{ $index }})" 
-                        class="w-3 h-3 rounded-full transition-all {{ $currentSlide === $index ? 'bg-kibo-gold w-6' : 'bg-gray-400 hover:bg-gray-300' }}">
+                <button @click="setSlide({{ $index }})" 
+                        :class="currentSlide === {{ $index }} ? 'bg-kibo-gold w-8 h-3' : 'bg-white/50 hover:bg-white/70 w-3 h-3'"
+                        class="rounded-full transition-all duration-300 backdrop-blur-sm">
                 </button>
             @endforeach
         </div>
 
-        <!-- Arrow Controls -->
-        <button wire:click="prevSlide" class="absolute left-5 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-70 text-white p-3 rounded-full transition-all">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <!-- Enhanced Arrow Controls -->
+        <button @click="prevSlide()" 
+                class="absolute left-6 top-1/2 transform -translate-y-1/2 bg-black/30 backdrop-blur-sm hover:bg-black/50 text-white p-4 rounded-full transition-all duration-300 group z-20">
+            <svg class="w-6 h-6 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
             </svg>
         </button>
 
+        <button @click="nextSlide()" 
+                class="absolute right-6 top-1/2 transform -translate-y-1/2 bg-black/30 backdrop-blur-sm hover:bg-black/50 text-white p-4 rounded-full transition-all duration-300 group z-20">
+            <svg class="w-6 h-6 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+        </button>
 
-        </section>
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce z-20">
+            <div class="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
+                <div class="w-1 h-3 bg-white/70 rounded-full mt-2 animate-pulse"></div>
+            </div>
+        </div>
+    </section>
+
 
     <!-- Services Section -->
     <!-- Services Section -->

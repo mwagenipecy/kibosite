@@ -27,58 +27,298 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 <body class="antialiased bg-gray-50">
-    <header x-data="{ open: false, scrolled: false }" 
-            @scroll.window="scrolled = window.pageYOffset > 50"
-            :class="{ 'bg-white shadow-md': scrolled, 'bg-transparent': !scrolled }"
-            class="fixed w-full z-50 transition-all duration-300">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20">
-                <div class="flex items-center">
-                    <a href="{{ route('home') }}" class="flex-shrink-0 flex items-center">
-                        <img class="h-12 w-auto" src="{{ asset('/logo/logo.png') }}" alt="Kibo Capital Logo">
-                    </a>
-                </div>
-                
-                <!-- Desktop Navigation -->
-                <nav class="hidden md:flex items-center space-x-8">
-                    <a href="{{ route('home') }}" class="text-kibo-dark hover:text-kibo-blue transition-colors duration-200 font-medium">Home</a>
-                    <a href="{{ route('about') }}" class="text-kibo-dark hover:text-kibo-blue transition-colors duration-200 font-medium">About</a>
-                    <a href="{{ route('services') }}" class="text-kibo-dark hover:text-kibo-blue transition-colors duration-200 font-medium">Services</a>
-                    <a href="{{ route('portfolio') }}" class="text-kibo-dark hover:text-kibo-blue transition-colors duration-200 font-medium">Portfolio</a>
-                    <a href="{{ route('team') }}" class="text-kibo-dark hover:text-kibo-blue transition-colors duration-200 font-medium">Team</a>
-                    <a href="{{ route('testimonials') }}" class="text-kibo-dark hover:text-kibo-blue transition-colors duration-200 font-medium">Testimonials</a>
-                    <a href="{{ route('blog') }}" class="text-kibo-dark hover:text-kibo-blue transition-colors duration-200 font-medium">Blog</a>
-                    <a href="{{ route('contact') }}" class="btn-primary">Contact Us</a>
-                </nav>
-                
-                <!-- Mobile menu button -->
-                <div class="flex items-center md:hidden">
-                    <button @click="open = !open" class="p-2 rounded-md text-kibo-dark hover:text-kibo-blue focus:outline-none">
-                        <svg :class="{'hidden': open, 'block': !open}" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                        <svg :class="{'block': open, 'hidden': !open}" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
+   
+<header x-data="{ open: false, scrolled: false }" 
+        @scroll.window="scrolled = window.pageYOffset > 50"
+        :class="{ 
+            'bg-white/95 backdrop-blur-md shadow-lg': scrolled, 
+            'bg-white/10 backdrop-blur-sm': !scrolled 
+        }"
+        class="fixed w-full z-50 transition-all duration-300">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-20">
+            <div class="flex items-center">
+                <a href="{{ route('home') }}" class="flex-shrink-0 flex items-center">
+                    <img class="h-24 w-auto" src="{{ asset('/logo/logo.png') }}" alt="Kibo Capital Logo">
+
+                   <!-- <div class="font-bold text-2xl ml-3 text-white">
+                        Kibo Capital Limited
+                    </div> -->
+                </a>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center space-x-8">
+                <!-- Home Link -->
+                <a href="{{ route('home') }}" 
+                   class="transition-colors duration-200 relative
+                   @if(request()->routeIs('home'))
+                       font-semibold before:content-[''] before:absolute before:bottom-[-8px] before:left-0 before:w-full before:h-0.5
+                   @else
+                       font-medium
+                   @endif"
+                   :class="{
+                       @if(request()->routeIs('home'))
+                           'text-kibo-blue before:bg-kibo-blue': scrolled,
+                           'text-kibo-light before:bg-kibo-light': !scrolled
+                       @else
+                           'text-gray-800 hover:text-kibo-blue': scrolled,
+                           'text-white hover:text-kibo-light': !scrolled
+                       @endif
+                   }">
+                   Home
+                </a>
+
+                <!-- About Link -->
+                <a href="{{ route('about') }}" 
+                   class="transition-colors duration-200 relative
+                   @if(request()->routeIs('about'))
+                       font-semibold before:content-[''] before:absolute before:bottom-[-8px] before:left-0 before:w-full before:h-0.5
+                   @else
+                       font-medium
+                   @endif"
+                   :class="{
+                       @if(request()->routeIs('about'))
+                           'text-kibo-blue before:bg-kibo-blue': scrolled,
+                           'text-kibo-light before:bg-kibo-light': !scrolled
+                       @else
+                           'text-gray-800 hover:text-kibo-blue': scrolled,
+                           'text-white hover:text-kibo-light': !scrolled
+                       @endif
+                   }">
+                   About
+                </a>
+
+                <!-- Services Link -->
+                <a href="{{ route('services') }}" 
+                   class="transition-colors duration-200 relative
+                   @if(request()->routeIs('services'))
+                       font-semibold before:content-[''] before:absolute before:bottom-[-8px] before:left-0 before:w-full before:h-0.5
+                   @else
+                       font-medium
+                   @endif"
+                   :class="{
+                       @if(request()->routeIs('services'))
+                           'text-kibo-blue before:bg-kibo-blue': scrolled,
+                           'text-kibo-light before:bg-kibo-light': !scrolled
+                       @else
+                           'text-gray-800 hover:text-kibo-blue': scrolled,
+                           'text-white hover:text-kibo-light': !scrolled
+                       @endif
+                   }">
+                   Services
+                </a>
+
+                <!-- Portfolio Link -->
+                <a href="{{ route('portfolio') }}" 
+                   class="transition-colors duration-200 relative
+                   @if(request()->routeIs('portfolio'))
+                       font-semibold before:content-[''] before:absolute before:bottom-[-8px] before:left-0 before:w-full before:h-0.5
+                   @else
+                       font-medium
+                   @endif"
+                   :class="{
+                       @if(request()->routeIs('portfolio'))
+                           'text-kibo-blue before:bg-kibo-blue': scrolled,
+                           'text-kibo-light before:bg-kibo-light': !scrolled
+                       @else
+                           'text-gray-800 hover:text-kibo-blue': scrolled,
+                           'text-white hover:text-kibo-light': !scrolled
+                       @endif
+                   }">
+                   Portfolio
+                </a>
+
+                <!-- Team Link -->
+                <a href="{{ route('team') }}" 
+                   class="transition-colors duration-200 relative
+                   @if(request()->routeIs('team'))
+                       font-semibold before:content-[''] before:absolute before:bottom-[-8px] before:left-0 before:w-full before:h-0.5
+                   @else
+                       font-medium
+                   @endif"
+                   :class="{
+                       @if(request()->routeIs('team'))
+                           'text-kibo-blue before:bg-kibo-blue': scrolled,
+                           'text-kibo-light before:bg-kibo-light': !scrolled
+                       @else
+                           'text-gray-800 hover:text-kibo-blue': scrolled,
+                           'text-white hover:text-kibo-light': !scrolled
+                       @endif
+                   }">
+                   Team
+                </a>
+
+                <!-- Testimonials Link -->
+                <a href="{{ route('testimonials') }}" 
+                   class="transition-colors duration-200 relative
+                   @if(request()->routeIs('testimonials'))
+                       font-semibold before:content-[''] before:absolute before:bottom-[-8px] before:left-0 before:w-full before:h-0.5
+                   @else
+                       font-medium
+                   @endif"
+                   :class="{
+                       @if(request()->routeIs('testimonials'))
+                           'text-kibo-blue before:bg-kibo-blue': scrolled,
+                           'text-kibo-light before:bg-kibo-light': !scrolled
+                       @else
+                           'text-gray-800 hover:text-kibo-blue': scrolled,
+                           'text-white hover:text-kibo-light': !scrolled
+                       @endif
+                   }">
+                   Testimonials
+                </a>
+
+                <!-- Blog Link -->
+                <a href="{{ route('blog') }}" 
+                   class="transition-colors duration-200 relative
+                   @if(request()->routeIs('blog'))
+                       font-semibold before:content-[''] before:absolute before:bottom-[-8px] before:left-0 before:w-full before:h-0.5
+                   @else
+                       font-medium
+                   @endif"
+                   :class="{
+                       @if(request()->routeIs('blog'))
+                           'text-kibo-blue before:bg-kibo-blue': scrolled,
+                           'text-kibo-light before:bg-kibo-light': !scrolled
+                       @else
+                           'text-gray-800 hover:text-kibo-blue': scrolled,
+                           'text-white hover:text-kibo-light': !scrolled
+                       @endif
+                   }">
+                   Blog
+                </a>
+
+                <!-- Contact Button (Always highlighted) -->
+                <a href="{{ route('contact') }}" 
+                   class="btn-primary px-6 py-2 rounded-lg transition-all duration-200 font-medium
+                   @if(request()->routeIs('contact'))
+                       bg-kibo-light text-kibo-blue border-2 border-kibo-light shadow-lg transform scale-105
+                   @else
+                       bg-kibo-blue text-white hover:bg-kibo-blue/90 hover:shadow-lg hover:transform hover:scale-105
+                   @endif">
+                   Contact Us
+                </a>
+            </nav>
+            
+            <!-- Mobile menu button -->
+            <div class="flex items-center md:hidden">
+                <button @click="open = !open" 
+                        :class="scrolled ? 'text-gray-800 hover:text-kibo-blue' : 'text-white hover:text-kibo-light'"
+                        class="p-2 rounded-md focus:outline-none transition-colors duration-200">
+                    <svg :class="{'hidden': open, 'block': !open}" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                    <svg :class="{'block': open, 'hidden': !open}" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
             </div>
         </div>
-        
-        <!-- Mobile Navigation -->
-        <div x-show="open" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="md:hidden bg-white shadow-lg rounded-b-lg">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="{{ route('home') }}" class="block px-3 py-2 rounded-md text-base font-medium text-kibo-dark hover:bg-kibo-light">Home</a>
-                <a href="{{ route('about') }}" class="block px-3 py-2 rounded-md text-base font-medium text-kibo-dark hover:bg-kibo-light">About</a>
-                <a href="{{ route('services') }}" class="block px-3 py-2 rounded-md text-base font-medium text-kibo-dark hover:bg-kibo-light">Services</a>
-                <a href="{{ route('portfolio') }}" class="block px-3 py-2 rounded-md text-base font-medium text-kibo-dark hover:bg-kibo-light">Portfolio</a>
-                <a href="{{ route('team') }}" class="block px-3 py-2 rounded-md text-base font-medium text-kibo-dark hover:bg-kibo-light">Team</a>
-                <a href="{{ route('testimonials') }}" class="block px-3 py-2 rounded-md text-base font-medium text-kibo-dark hover:bg-kibo-light">Testimonials</a>
-                <a href="{{ route('blog') }}" class="block px-3 py-2 rounded-md text-base font-medium text-kibo-dark hover:bg-kibo-light">Blog</a>
-                <a href="{{ route('contact') }}" class="block px-3 py-2 rounded-md text-base font-medium bg-kibo-blue text-white">Contact Us</a>
-            </div>
+    </div>
+    
+    <!-- Mobile Navigation -->
+    <div x-show="open" 
+         x-transition:enter="transition ease-out duration-200" 
+         x-transition:enter-start="opacity-0 scale-95" 
+         x-transition:enter-end="opacity-100 scale-100" 
+         x-transition:leave="transition ease-in duration-150" 
+         x-transition:leave-start="opacity-100 scale-100" 
+         x-transition:leave-end="opacity-0 scale-95" 
+         class="md:hidden bg-white/95 backdrop-blur-md shadow-lg rounded-b-lg border-t border-gray-200/20">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <!-- Mobile Home Link -->
+            <a href="{{ route('home') }}" 
+               class="block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200
+               @if(request()->routeIs('home'))
+                   bg-kibo-blue/20 text-kibo-blue border-l-4 border-kibo-blue font-semibold
+               @else
+                   text-gray-800 hover:bg-kibo-blue/10 hover:text-kibo-blue
+               @endif">
+               Home
+            </a>
+
+            <!-- Mobile About Link -->
+            <a href="{{ route('about') }}" 
+               class="block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200
+               @if(request()->routeIs('about'))
+                   bg-kibo-blue/20 text-kibo-blue border-l-4 border-kibo-blue font-semibold
+               @else
+                   text-gray-800 hover:bg-kibo-blue/10 hover:text-kibo-blue
+               @endif">
+               About
+            </a>
+
+            <!-- Mobile Services Link -->
+            <a href="{{ route('services') }}" 
+               class="block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200
+               @if(request()->routeIs('services'))
+                   bg-kibo-blue/20 text-kibo-blue border-l-4 border-kibo-blue font-semibold
+               @else
+                   text-gray-800 hover:bg-kibo-blue/10 hover:text-kibo-blue
+               @endif">
+               Services
+            </a>
+
+            <!-- Mobile Portfolio Link -->
+            <a href="{{ route('portfolio') }}" 
+               class="block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200
+               @if(request()->routeIs('portfolio'))
+                   bg-kibo-blue/20 text-kibo-blue border-l-4 border-kibo-blue font-semibold
+               @else
+                   text-gray-800 hover:bg-kibo-blue/10 hover:text-kibo-blue
+               @endif">
+               Portfolio
+            </a>
+
+            <!-- Mobile Team Link -->
+            <a href="{{ route('team') }}" 
+               class="block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200
+               @if(request()->routeIs('team'))
+                   bg-kibo-blue/20 text-kibo-blue border-l-4 border-kibo-blue font-semibold
+               @else
+                   text-gray-800 hover:bg-kibo-blue/10 hover:text-kibo-blue
+               @endif">
+               Team
+            </a>
+
+            <!-- Mobile Testimonials Link -->
+            <a href="{{ route('testimonials') }}" 
+               class="block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200
+               @if(request()->routeIs('testimonials'))
+                   bg-kibo-blue/20 text-kibo-blue border-l-4 border-kibo-blue font-semibold
+               @else
+                   text-gray-800 hover:bg-kibo-blue/10 hover:text-kibo-blue
+               @endif">
+               Testimonials
+            </a>
+
+            <!-- Mobile Blog Link -->
+            <a href="{{ route('blog') }}" 
+               class="block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200
+               @if(request()->routeIs('blog'))
+                   bg-kibo-blue/20 text-kibo-blue border-l-4 border-kibo-blue font-semibold
+               @else
+                   text-gray-800 hover:bg-kibo-blue/10 hover:text-kibo-blue
+               @endif">
+               Blog
+            </a>
+
+            <!-- Mobile Contact Button -->
+            <a href="{{ route('contact') }}" 
+               class="block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200
+               @if(request()->routeIs('contact'))
+                   bg-kibo-light text-kibo-blue border-2 border-kibo-blue font-semibold shadow-md
+               @else
+                   bg-kibo-blue text-white hover:bg-kibo-blue/90 font-semibold
+               @endif">
+               Contact Us
+            </a>
         </div>
-    </header>
+    </div>
+</header>
+
+
 
     <main>
      @yield('main-section')
@@ -89,7 +329,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <!-- Logo & Description -->
             <div>
-                <img class="h-12 w-auto mb-6" src="{{ asset('/logo/logo.png') }}" alt="Kibo Capital Limited Logo">
+                <img class="h-24 w-auto mb-6" src="{{ asset('/logo/logo.png') }}" alt="Kibo Capital Limited Logo">
                 <p class="text-gray-300 mb-6">
                     Kibo Capital Limited is a premier civil and building contractor, delivering high-quality construction and infrastructure projects with integrity, professionalism, and pride.
                 </p>
