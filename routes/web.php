@@ -18,30 +18,21 @@ use App\Livewire\ContactPage;
 //     return view('welcome');
 // });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+Route::fallback(function () {
+    return response()->view('errors.404', [], 404);
 });
 
 
+Route::redirect('/login', '/error');
+Route::redirect('/register', '/error');
+Route::redirect('/password/reset', '/error');
+Route::redirect('/password/forgot', '/error');
 
 
-// Route::get('/', HomePage::class)->name('home');
-// Route::get('/about', AboutPage::class)->name('about');
-// Route::get('/services', ServicesPage::class)->name('services');
-// Route::get('/portfolio', PortfolioPage::class)->name('portfolio');
-// Route::get('/team', TeamPage::class)->name('team');
-// Route::get('/testimonials', TestimonialsPage::class)->name('testimonials');
-// Route::get('/blog', BlogPage::class)->name('blog');
-// Route::get('/blog/{slug}', BlogPost::class)->name('blog.post');
-// Route::get('/contact', ContactPage::class)->name('contact');
 
-
+Route::get('error', function () {
+    return view('errors.404');
+})->name('error');
 
 
 Route::get('/',[DashboardController::class,'index'])->name('home'); //done
